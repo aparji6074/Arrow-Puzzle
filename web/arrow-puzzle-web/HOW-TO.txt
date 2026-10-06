@@ -1,0 +1,33 @@
+ARROW PUZZLE - PLAY STORE TAK KA SABSE AASAAN RASTA (koi coding nahi)
+=====================================================================
+
+PEHLE (sirf 2 minute):
+  * privacy-policy.html ko Notepad/kisi bhi editor me kholo.
+  * PUT-YOUR-EMAIL-HERE ki jagah apna email aur PUT-DATE-HERE ki jagah aaj ki date likho. Save karo.
+
+STEP 1 - Game ko internet par daalo (free):
+  * Is poore folder ko "arrow-puzzle-web" ko app.netlify.com/drop par kheench kar chhod do.
+  * Aapko ek link milega, jaise https://xyz.netlify.app  -> isse copy kar lo.
+  * Link kholkar dekho: game chal raha hai. Aur link/privacy-policy.html par Privacy Policy dikhni chahiye.
+
+STEP 2 - Link se Android app banao (free):
+  * pwabuilder.com kholo, apna link daalo, "Start" dabao.
+  * "Package for stores" -> "Android" -> "Generate Package" dabao.
+  * Ek ZIP download hoga. Usme .aab file hoti hai (yehi Play Store ko chahiye) aur ek signing key file hoti hai.
+  * Signing key file aur uska password KAHI SURAKSHIT RAKH LO. Kho gayi to update nahi daal paoge.
+
+STEP 3 - Play Store par daalo:
+  * play.google.com/console par Developer account banao (ek baar ka $25 + ID verification).
+  * "Create app" -> Game -> Free.
+  * Store listing bharo (naam, chhota/lamba description, icon icons/icon-512.png, screenshots).
+  * Privacy Policy me apna Netlify wala link/privacy-policy.html daalo.
+  * Ads declaration me "App me ads nahi hain" chuno (jab tak ads band hain).
+  * Data safety: "koi data collect nahi hota" chuno. Content rating ka sawal-jawab bharo.
+  * Testing -> Closed testing -> .aab upload karo -> kam se kam 12 logon ke Gmail jodo.
+  * 14 din baad "Apply for production access" dabao, phir Production me release bhejo.
+
+NOTE:
+  * Is version me Ads BAND hain (taaki demo ad screen public ko na dikhe). Hint khatam hone par naye hints 5 level
+    poore karne ya Daily Reward se milte hain.
+  * Agar app ke upar patli address bar dikhe, to PWABuilder ke ZIP me di gayi "assetlinks.json" ko hosting me
+    /.well-known/assetlinks.json par rakhna padega. Screen par jo instruction aaye vaise karo, ya mujhe batao.
