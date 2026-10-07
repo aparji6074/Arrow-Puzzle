@@ -420,7 +420,7 @@ function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.quer
   $('brand').innerHTML='';const b=$('brand');
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:20px;vertical-align:middle;margin-right:6px';b.appendChild(i);b.appendChild(document.createTextNode(CFG.name))}
   else b.textContent=(CFG.logo?CFG.logo+' ':'')+CFG.name;
-  document.title=CFG.name;$('hint').style.display=CFG.hintEnabled?'':'none';$('undo').style.display=CFG.undoLimit>0?'':'none'}
+  document.title=CFG.name;$('hint').style.display=CFG.hintEnabled?'':'none'}
 function sndBtn(){$('snd').textContent=(SND||MUS)?'🔊':'🔇'}
 $('snd').onclick=()=>{const on=!(SND||MUS);SND=MUS=on;sv2();sndBtn();setBtns();if(on){musStart();tak()}else musStop()};
 
