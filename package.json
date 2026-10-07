@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/aparji6074/Arrow-Puzzle#readme",
   "dependencies": {
+    "@capacitor-community/admob": "^8.2.1",
     "@capacitor/android": "^8.5.2",
     "@capacitor/cli": "^8.5.2",
     "@capacitor/core": "^8.5.2"
