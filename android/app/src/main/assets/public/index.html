@@ -350,7 +350,7 @@ function drawTrails(){const svg=$('svg');const old=document.getElementById('trai
       el('path',{d:`M${cx-.2} ${cy-.2}L${cx+.2} ${cy+.2}M${cx+.2} ${cy-.2}L${cx-.2} ${cy+.2}`,stroke:'#dc2626','stroke-width':.16,'stroke-linecap':'round',fill:'none'},t)}
     else{const e=pts[pts.length-1],px=-dy,py=dx;el('polygon',{points:[[e[0]+dx*.35,e[1]+dy*.35],[e[0]+px*.3,e[1]+py*.3],[e[0]-px*.3,e[1]-py*.3]].map(q=>q.join(',')).join(' '),fill:col},t)}}
   svg.insertBefore(t,svg.firstChild)}
-$('mark').onclick=()=>{MARK=!MARK;$('mark').classList.toggle('on',MARK);$('mark').textContent=MARK?'Mark ✓':'Mark';drawTrails()};
+
 setInterval(()=>{const stuck=Date.now()-idleT>25000&&$('hm').style.display==='none'&&$('ov').style.display!=='flex'&&alive&&alive.length>0;$('hint').classList.toggle('pulse',!!stuck)},1000);
 function cancelLastTap(){const lt=lastTap;if(!lt||performance.now()-lt.t>170)return;lastTap=null;const a=lt.a;
   if(lt.kind==='exit'&&a.moving&&undoStack[undoStack.length-1]===a){a.cancelled=true;a.moving=false;pending--;undoStack.pop();a.escaping=false;draw(a,0);color(a);alive.push(a);hud()}
@@ -423,7 +423,7 @@ function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.quer
   document.title=CFG.name;$('hint').style.display=CFG.hintEnabled?'':'none';$('undo').style.display=CFG.undoLimit>0?'':'none'}
 function sndBtn(){$('snd').textContent=(SND||MUS)?'🔊':'🔇'}
 $('snd').onclick=()=>{const on=!(SND||MUS);SND=MUS=on;sv2();sndBtn();setBtns();if(on){musStart();tak()}else musStop()};
-$('undo').onclick=undo;
+
 $('lclose').onclick=()=>$('lov').style.display='none';
 $('pcopy').onclick=()=>{const all={p:[0,1,2].map(d=>d===DIFF?PROG:ls(PKEY[d],{max:1,stars:{}})),g:GP,d:DIFF};copyTxt(btoa(JSON.stringify(all)));$('pmsg').textContent='Progress code copied (all modes)'};
 $('ppaste').onclick=()=>{const t=prompt('Paste your progress code here');if(!t)return;try{const a=JSON.parse(atob(t.trim()));if(!a||!a.p)throw 0;a.p.forEach((p,d)=>{try{localStorage.setItem(PKEY[d],JSON.stringify(p))}catch(e){}});GP=a.g||GP;PROG=a.p[DIFF];sp();lv=Math.max(1,PROG.max);levels();$('pmsg').textContent='Progress restored'}catch(e){$('pmsg').textContent='Invalid code'}};
