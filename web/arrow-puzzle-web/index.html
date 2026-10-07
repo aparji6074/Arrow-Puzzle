@@ -74,7 +74,7 @@ button.ghost{border-color:transparent;background:transparent;color:transparent}
 <div id="bw"><div id="board"><svg id="svg"></svg></div></div>
 <div id="bar"><button id="hint">Hint (Ad)</button><button id="grid">Grid</button></div>
 </div>
-<div id="hm" class="scr"><button class="ico" id="hset2" style="right:62px" aria-label="Settings">⚙</button><button class="ico" id="hhow2" style="right:12px" aria-label="How to play">?</button><div id="hlogo">🏹</div><svg id="hdeco" viewBox="0 0 200 40" width="200" height="40" style="margin:-4px 0 4px"><g stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="20" x2="34" y2="20" stroke="#2563eb"/><polygon points="32,11 46,20 32,29" fill="#2563eb" stroke="#2563eb" stroke-width="3"/><line x1="58" y1="20" x2="84" y2="20" stroke="#7c3aed"/><polygon points="82,11 96,20 82,29" fill="#7c3aed" stroke="#7c3aed" stroke-width="3"/><line x1="108" y1="20" x2="134" y2="20" stroke="#ea580c"/><polygon points="132,11 146,20 132,29" fill="#ea580c" stroke="#ea580c" stroke-width="3"/><line x1="158" y1="20" x2="178" y2="20" stroke="#0891b2"/><polygon points="176,11 190,20 176,29" fill="#0891b2" stroke="#0891b2" stroke-width="3"/></g></svg><h1 id="htitle">Arrow Puzzle</h1><div id="hby">by APARJI</div><p id="hsub"></p><div id="hdiff"><button data-d="0">SIMPLE</button><button data-d="1">MEDIUM</button><button data-d="2">HARD</button></div><button class="p big" id="hplay">▶ PLAY</button><button class="big" id="hlv">LEVELS</button><button class="big" id="hdaily" style="display:none">🎁 Daily Reward</button><div class="hrow" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="hset">⚙ Settings</button><button id="hhow">? How to play</button></div><div class="hsp"></div><div class="bn">Banner ad (demo)</div></div>
+<div id="hm" class="scr"><button class="ico" id="hset2" style="right:62px" aria-label="Settings">⚙</button><button class="ico" id="hhow2" style="right:12px" aria-label="How to play">?</button><div id="hlogo"><img src="assets/arrow-puzzle-logo.png" alt="Arrow Puzzle" style="width:112px;height:112px;object-fit:contain;border-radius:24px;display:block;margin:0 auto 6px;box-shadow:0 8px 20px rgba(11,42,107,.18)"></div><svg id="hdeco" viewBox="0 0 200 40" width="200" height="40" style="margin:-4px 0 4px"><g stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="20" x2="34" y2="20" stroke="#2563eb"/><polygon points="32,11 46,20 32,29" fill="#2563eb" stroke="#2563eb" stroke-width="3"/><line x1="58" y1="20" x2="84" y2="20" stroke="#7c3aed"/><polygon points="82,11 96,20 82,29" fill="#7c3aed" stroke="#7c3aed" stroke-width="3"/><line x1="108" y1="20" x2="134" y2="20" stroke="#ea580c"/><polygon points="132,11 146,20 132,29" fill="#ea580c" stroke="#ea580c" stroke-width="3"/><line x1="158" y1="20" x2="178" y2="20" stroke="#0891b2"/><polygon points="176,11 190,20 176,29" fill="#0891b2" stroke="#0891b2" stroke-width="3"/></g></svg><h1 id="htitle">Arrow Puzzle</h1><div id="hby">by APARJI</div><p id="hsub"></p><div id="hdiff"><button data-d="0">SIMPLE</button><button data-d="1">MEDIUM</button><button data-d="2">HARD</button></div><button class="p big" id="hplay">▶ PLAY</button><button class="big" id="hlv">LEVELS</button><button class="big" id="hdaily" style="display:none">🎁 Daily Reward</button><div class="hrow" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="hset">⚙ Settings</button><button id="hhow">? How to play</button></div><div class="hsp"></div><div class="bn">Banner ad (demo)</div></div>
 <div id="lov" class="scr"><div style="display:flex;gap:8px;align-items:center;width:100%;max-width:520px"><b style="font-size:1.2rem;flex:1;text-align:left">LEVELS</b><button id="pcopy" style="min-height:36px;padding:4px 8px;font-size:.75rem">Progress Copy</button><button id="ppaste" style="min-height:36px;padding:4px 8px;font-size:.75rem">Paste</button><button id="lclose" style="min-height:36px;padding:4px 10px">✕</button></div><div id="pmsg" style="font-size:.8rem;color:var(--mute);min-height:1em"></div><div id="lgrid"></div><div class="bn">Banner ad (demo)</div></div>
 <div id="stg" class="scr"><h2 style="margin:0">⚙ Settings</h2><button class="big" id="sfx"></button><button class="big" id="mu"></button><button class="big" id="rate" style="display:none">Rate this game</button><button class="big" id="priv" style="display:none">Privacy Policy</button><button class="big" id="shr">Share</button><button class="p big" id="stclose">OK</button></div>
 <div id="tut" class="scr"><h2 style="margin:0">How to play</h2><p>1. Touch an arrow and it slides out in the direction of its head.<br>2. If another arrow is in the way, you crash and lose a heart ❤️. Lose all 3 hearts and the level ends (you can Revive).<br>3. Remove the arrows with a clear path first.<br>4. Pinch with two fingers to zoom, drag with one finger to move the board.<br>5. Stuck? Press Hint: the safe arrow blinks red. Use Grid to see the board grid and where arrows exit. Grid does not reveal the solution. Play without accidents for 3 stars!</p><button class="p big" id="tclose">Got it!</button></div>
@@ -83,54 +83,90 @@ button.ghost{border-color:transparent;background:transparent;color:transparent}
 <div id="ov" class="scr"><h2 id="ot"></h2><p id="om"></p><button class="p big" id="o1"></button><button class="big" id="o2"></button><button class="big" id="o3"></button></div>
 <script>
 window.AP_ADS={
-  native:false,ready:false,
+  native:false,
+  ready:false,
   bannerAdId:'ca-app-pub-8227855778011894/6476816923',
   rewardedAdId:'ca-app-pub-8227855778011894/5028003887',
   interstitialAdId:'ca-app-pub-8227855778011894/6018661085'
 };
+
 (async function(){
   try{
     const A=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.AdMob;
-    if(!A)return;
+    if(!A){
+      console.log('AdMob plugin not available');
+      return;
+    }
+
+    await A.initialize({
+      initializeForTesting:true
+    });
+
     window.AP_ADS.native=true;
-    await A.initialize({initializeForTesting:true});
     window.AP_ADS.ready=true;
-    window.AP_ADS.showBanner=()=>A.showBanner({
-      adId:window.AP_ADS.bannerAdId,
-      adSize:'ADAPTIVE_BANNER',
-      position:'BOTTOM_CENTER',
-      margin:0,
-      isTesting:true
-    });
-    window.AP_ADS.hideBanner=()=>A.hideBanner();
-    window.AP_ADS.prepareRewarded=()=>A.prepareRewardVideoAd({
-      adId:window.AP_ADS.rewardedAdId,
-      isTesting:true
-    });
+
+    window.AP_ADS.showBanner=async function(){
+      try{
+        await A.showBanner({
+          adId:window.AP_ADS.bannerAdId,
+          adSize:'ADAPTIVE_BANNER',
+          position:'BOTTOM_CENTER',
+          margin:0,
+          isTesting:true
+        });
+      }catch(e){
+        console.log('AdMob Banner:',e);
+      }
+    };
+
+    window.AP_ADS.hideBanner=async function(){
+      try{
+        await A.hideBanner();
+      }catch(e){
+        console.log('AdMob Hide Banner:',e);
+      }
+    };
+
     window.AP_ADS.rewarded=async function(cb,fail){
       try{
         await A.prepareRewardVideoAd({
           adId:window.AP_ADS.rewardedAdId,
           isTesting:true
         });
+
         await A.showRewardVideoAd({
           adId:window.AP_ADS.rewardedAdId
         });
-        cb();
-      }catch(e){if(fail)fail(e)}
+
+        if(cb)cb();
+      }catch(e){
+        console.log('AdMob Rewarded:',e);
+        if(fail)fail(e);
+      }
     };
+
     window.AP_ADS.interstitial=async function(cb){
       try{
         await A.prepareInterstitial({
           adId:window.AP_ADS.interstitialAdId,
           isTesting:true
         });
+
         await A.showInterstitial();
-      }catch(e){}
-      cb();
+      }catch(e){
+        console.log('AdMob Interstitial:',e);
+      }
+
+      if(cb)cb();
     };
+
     await window.AP_ADS.showBanner();
-  }catch(e){console.log('AdMob:',e)}
+
+  }catch(e){
+    console.log('AdMob Init:',e);
+    window.AP_ADS.native=false;
+    window.AP_ADS.ready=false;
+  }
 })();
 const SHARED_SRC="const D=[[1,0],[0,1],[-1,0],[0,-1]],K=(x,y)=>x+','+y;\nconst PTS=[[1,5],[2,6],[3,8],[4,10],[5,12],[6,14],[7,16],[8,18],[9,20],[10,20],[20,24],[30,28],[50,34],[70,40],[100,46]];\nfunction countFor(l){if(l>=100)return Math.min(64,46+Math.round((l-100)/50));for(let i=1;i<PTS.length;i++){const[a,x]=PTS[i-1],[b,y]=PTS[i];if(l<=b)return Math.round(x+(y-x)*(l-a)/(b-a))}}\nconst isHard=l=>l>10&&l%6===0;\nfunction diffName(l){return l<=10?'Easy':l<=50?'Easy + Medium':l<=100?'Medium':l<=200?'Medium + Hard':l<=500?'Hard':l<=800?'Very Hard':'Extreme'}\nfunction rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}\n// ---- Difficulty modes: 0 = Simple, 1 = Medium, 2 = Hard (each has its own 1000 levels) ----\nconst DM=[{eff:l=>Math.max(1,Math.round(l*.55)),mul:.75,free:.42},{eff:l=>l,mul:1,free:.28},{eff:l=>Math.round(l*1.4)+20,mul:1.3,free:.14}];\n// ---- dependency graph: arrow A waits for arrow B if B sits in A's straight exit lane. Solvable <=> no cycle. ----\nfunction graph(N,arrows){const n=arrows.length,own=new Int32Array(N*N).fill(-1);\n  arrows.forEach((a,i)=>a.cells.forEach(c=>{own[c[1]*N+c[0]]=i}));\n  const out=Array.from({length:n},()=>[]),indeg=new Int32Array(n);\n  for(let i=0;i<n;i++){const a=arrows[i],h=a.cells[a.cells.length-1],dx=D[a.d][0],dy=D[a.d][1],seen=new Set();let x=h[0]+dx,y=h[1]+dy;\n    while(x>=0&&y>=0&&x<N&&y<N){const o=own[y*N+x];if(o>=0&&o!==i&&!seen.has(o)){seen.add(o);out[o].push(i);indeg[i]++}x+=dx;y+=dy}}\n  return{n,out,indeg}}\nfunction topo(g){const indeg=g.indeg.slice(),q=[],lev=new Int32Array(g.n);let free=0;\n  for(let i=0;i<g.n;i++)if(!indeg[i]){q.push(i);free++}\n  for(let h=0;h<q.length;h++){const u=q[h];for(const v of g.out[u]){if(lev[u]+1>lev[v])lev[v]=lev[u]+1;if(--indeg[v]===0)q.push(v)}}\n  let mx=0;for(let i=0;i<g.n;i++)if(lev[i]>mx)mx=lev[i];\n  return{ok:q.length===g.n,order:q,free,layers:mx+1}}\nfunction solve(N,arrows){const t=topo(graph(N,arrows));return t.ok?t.order:null}\nfunction metrics(N,arrows){const t=topo(graph(N,arrows));return{free:t.free/Math.max(1,arrows.length),layers:t.ok?t.layers:-1}}\n// ---- generator: long winding snakes, then \"blocker\" arrows are dropped into the exit lanes of free arrows so the board is tangled ----\nfunction gen1(level,eff,d,want,o,f){\n  const r=rng(level*7919+13+(o.variant||0)*104729+d*1299709),hard=isHard(level);\n  const Lmax=Math.round(Math.min(30,10+eff*.3)+(hard?4:0)),Lmin=Math.max(5,Math.round(Lmax*.45));\n  const nLong=Math.max(2,Math.round(want*(.65+(hard?.08:0))));\n  const est=nLong*(Lmin+Lmax)/2+(want-nLong)*6.5+want*1.75;\n  const N=Math.max(7,Math.ceil(Math.sqrt(est/.55*f))+1),occ=new Set(),arrows=[],lane=new Map(),M=[2,3,5][d];let att=0;\n  function walk(x,y,cur,L,pt,own){const cells=[[x,y]];own.add(K(x,y));\n    while(cells.length<L){const first=r()<pt?(cur+(r()<.5?1:3))%4:cur,ord=[first,cur,(cur+1)%4,(cur+3)%4];let moved=false;\n      for(const dd of ord){const nx=x+D[dd][0],ny=y+D[dd][1];\n        if(nx<0||ny<0||nx>=N||ny>=N||occ.has(K(nx,ny))||own.has(K(nx,ny)))continue;\n        x=nx;y=ny;cur=dd;cells.push([x,y]);own.add(K(x,y));moved=true;break}\n      if(!moved)break}\n    return{cells,cur}}\n  function attempt(isLong){att++;\n    let L=isLong?Lmin+Math.floor(r()*(Lmax-Lmin+1)):5+Math.floor(r()*4);\n    if(isLong&&eff>=3&&r()<.15)L=Math.round(Lmax*1.3);\n    const x=Math.floor(r()*N),y=Math.floor(r()*N);if(occ.has(K(x,y)))return null;\n    const own=new Set(),w=walk(x,y,Math.floor(r()*4),L,isLong?.2:.45,own);\n    if(w.cells.length<(isLong?Math.max(5,Math.round(L*.7)):5))return null;\n    const[hx,hy]=w.cells[w.cells.length-1],dx=D[w.cur][0],dy=D[w.cur][1],ln=[];let ex=hx+dx,ey=hy+dy;\n    while(ex>=0&&ey>=0&&ex<N&&ey<N){if(occ.has(K(ex,ey))||own.has(K(ex,ey)))return null;ln.push(K(ex,ey));ex+=dx;ey+=dy}\n    if(ln.length<3&&r()<.9)return null;   // heads at the very edge can never be blocked: avoid them\n    let sc=0;for(const q of w.cells)sc+=lane.get(K(q[0],q[1]))||0;\n    return{cells:w.cells,d:w.cur,ln,sc:sc+ln.length*.6}}\n  while(arrows.length<want&&att<want*900){\n    const isLong=arrows.length<nLong;let best=null,cnt=0;\n    for(let t=0;t<45&&cnt<M&&att<want*900;t++){const cd=attempt(isLong);if(cd){cnt++;if(!best||cd.sc>best.sc)best=cd}}\n    if(!best)continue;\n    best.cells.forEach(c=>occ.add(K(c[0],c[1])));best.ln.forEach(k=>lane.set(k,(lane.get(k)||0)+1));arrows.push({cells:best.cells,d:best.d})}\n  // blocker pass: keep dropping a 5-10 cell arrow into the exit lane of a free arrow, as long as the puzzle stays solvable\n  const target=DM[d].free*(hard?.75:1)+Math.max(0,(8-eff)*.05);\n  for(let it=0,cap=Math.round(arrows.length*2.5);it<cap;it++){\n    const g=graph(N,arrows),t=topo(g);if(t.free/arrows.length<=target)break;\n    const fr=[];for(let i=0;i<arrows.length;i++)if(!g.indeg[i]){const a=arrows[i],hh=a.cells[a.cells.length-1];let xx=hh[0]+D[a.d][0],yy=hh[1]+D[a.d][1];if(xx>=0&&yy>=0&&xx<N&&yy<N)fr.push(i)}\n    if(!fr.length)break;\n    const F=arrows[fr[Math.floor(r()*fr.length)]],h=F.cells[F.cells.length-1],fx=D[F.d][0],fy=D[F.d][1],ln=[];\n    let x=h[0]+fx,y=h[1]+fy;while(x>=0&&y>=0&&x<N&&y<N){if(!occ.has(K(x,y)))ln.push([x,y]);x+=fx;y+=fy}\n    if(!ln.length)continue;\n    for(let tr=0;tr<16;tr++){\n      const j=Math.floor(r()*Math.min(ln.length,7)),own=new Set(),w=walk(ln[j][0],ln[j][1],Math.floor(r()*4),5+Math.floor(r()*6),.3,own);\n      if(w.cells.length<5)continue;\n      const[hx,hy]=w.cells[w.cells.length-1],dx=D[w.cur][0],dy=D[w.cur][1];let ex=hx+dx,ey=hy+dy,bad=false;\n      while(ex>=0&&ey>=0&&ex<N&&ey<N){if(own.has(K(ex,ey))){bad=true;break}ex+=dx;ey+=dy}\n      if(bad)continue;\n      const cand={cells:w.cells,d:w.cur};\n      if(topo(graph(N,arrows.concat([cand]))).ok){arrows.push(cand);w.cells.forEach(c=>occ.add(K(c[0],c[1])));break}}}\n  return{N,arrows,hard}}\nfunction gen(level,o){o=o||{};const d=Math.max(0,Math.min(2,o.diff===undefined?1:o.diff)),eff=DM[d].eff(level);\n  const want=o.count||Math.max(4,Math.round(countFor(Math.min(1000,eff))*DM[d].mul));let best=null;\n  for(const f of [1,1.12,1.28,1.5,1.8]){const g=gen1(level,eff,d,want,o,f);if(!best||g.arrows.length>best.arrows.length)best=g;if(g.arrows.length>=want)break}\n  best.metrics=metrics(best.N,best.arrows);return best}\nfunction finish(N,arrows){arrows.forEach((a,i)=>{a.id=i;const L=a.cells.length,[x,y]=a.cells[L-1],[dx,dy]=D[a.d];\n  a.path=a.cells.map(c=>[c[0]+.5,c[1]+.5]);a.ext=N+L+2;for(let k=1;k<=a.ext;k++)a.path.push([x+.5+dx*k,y+.5+dy*k])});return arrows}\nfunction pack(G){return{N:G.N,a:G.arrows.map(a=>({d:a.d,c:a.cells.flat()}))}}\nfunction unpack(p){const arrows=p.a.map(a=>{const cells=[];for(let i=0;i<a.c.length;i+=2)cells.push([a.c[i],a.c[i+1]]);return{cells,d:a.d}});return{N:p.N,arrows,hard:false}}\n";
 const D=[[1,0],[0,1],[-1,0],[0,-1]],K=(x,y)=>x+','+y;
@@ -463,7 +499,7 @@ $('grid').onclick=()=>{
   drawGrid();
   $('grid').textContent=showGrid?'Grid ✓':'Grid';
 };
-$('hint').onclick=()=>{if(GP.hints>0){GP.hints--;sp();hud();doHint()}else if(CFG.adsEnabled)fakeAd(doHint);else ov('No hints left','Earn more: finish 5 levels, or claim your Daily Reward on the Home screen','OK',()=>{})};
+$('hint').onclick=()=>{if(GP.hints>0){GP.hints--;sp();hud();doHint()}else if(CFG.adsEnabled)fakeAd(()=>{GP.hints=Math.min(2,GP.hints+1);sp();hud()});else ov('No hints left','Earn more: finish 5 levels, or claim your Daily Reward on the Home screen','OK',()=>{})};
 function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.querySelectorAll('.bn').forEach(e=>e.style.display=(CFG.bannerEnabled&&CFG.adsEnabled&&!(window.AP_ADS&&AP_ADS.native))?'flex':'none');$('rate').style.display=CFG.rateUrl?'':'none';$('priv').style.display=CFG.privacyUrl?'':'none';$('htitle').textContent=CFG.name;$('hlogo').innerHTML='';
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:84px';$('hlogo').appendChild(i)}else $('hlogo').textContent=CFG.logo||'🏹';
   $('brand').innerHTML='';const b=$('brand');
