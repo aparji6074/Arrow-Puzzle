@@ -18,7 +18,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:linear-gradient(160deg
 #lvl{font-size:.9rem;font-weight:800;white-space:nowrap;background:linear-gradient(135deg,#7c3aed,#2563eb);color:#fff!important;padding:5px 12px;border-radius:999px;box-shadow:0 2px 6px rgba(79,70,229,.3)}#left{font-size:.9rem;font-weight:800;white-space:nowrap;background:linear-gradient(135deg,#f97316,#ec4899);color:#fff!important;padding:5px 12px;border-radius:999px;box-shadow:0 2px 6px rgba(236,72,153,.3)}
 #sub{color:#4b5b8c;font-size:.85rem;font-weight:600;margin:6px 2px}
 #bw{position:relative;flex:1;min-height:120px}
-#board{position:absolute;inset:0;overflow:auto;background:linear-gradient(160deg,#ffffff,#f0f6ff 60%,#fff4fa);border:3px solid #fff;outline:2px solid #c4d4ff;border-radius:16px;box-shadow:0 4px 14px rgba(60,80,180,.12);touch-action:pan-x pan-y;overscroll-behavior:contain}
+#board{position:absolute;inset:0;overflow:auto;background:linear-gradient(160deg,#fffafd,#fff5f9 60%,#ffedf5);border:3px solid #fff;outline:2px solid #c4d4ff;border-radius:16px;box-shadow:0 4px 14px rgba(60,80,180,.12);touch-action:pan-x pan-y;overscroll-behavior:contain}
 svg{display:block;margin:0 auto;touch-action:pan-x pan-y;overflow:visible}
 #board.fit{overflow:visible}
 @keyframes hb{from{opacity:1}to{opacity:.3}}.hb{animation:hb .5s ease-in-out infinite alternate}
@@ -72,12 +72,12 @@ button.ghost{border-color:transparent;background:transparent;color:transparent}
 <div id="top"><div id="lvl"></div><div id="left"></div></div>
 <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div id="sub"></div><div id="col"></div></div>
 <div id="bw"><div id="board"><svg id="svg"></svg></div></div>
-<div id="bar"><button id="hint">Hint (Ad)</button><button id="undo">Undo (3)</button><button id="mark">Mark</button></div>
+<div id="bar"><button id="hint">Hint (Ad)</button><button id="grid">Grid</button></div>
 </div>
 <div id="hm" class="scr"><button class="ico" id="hset2" style="right:62px" aria-label="Settings">⚙</button><button class="ico" id="hhow2" style="right:12px" aria-label="How to play">?</button><div id="hlogo">🏹</div><svg id="hdeco" viewBox="0 0 200 40" width="200" height="40" style="margin:-4px 0 4px"><g stroke-width="7" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="20" x2="34" y2="20" stroke="#2563eb"/><polygon points="32,11 46,20 32,29" fill="#2563eb" stroke="#2563eb" stroke-width="3"/><line x1="58" y1="20" x2="84" y2="20" stroke="#7c3aed"/><polygon points="82,11 96,20 82,29" fill="#7c3aed" stroke="#7c3aed" stroke-width="3"/><line x1="108" y1="20" x2="134" y2="20" stroke="#ea580c"/><polygon points="132,11 146,20 132,29" fill="#ea580c" stroke="#ea580c" stroke-width="3"/><line x1="158" y1="20" x2="178" y2="20" stroke="#0891b2"/><polygon points="176,11 190,20 176,29" fill="#0891b2" stroke="#0891b2" stroke-width="3"/></g></svg><h1 id="htitle">Arrow Puzzle</h1><div id="hby">by APARJI</div><p id="hsub"></p><div id="hdiff"><button data-d="0">SIMPLE</button><button data-d="1">MEDIUM</button><button data-d="2">HARD</button></div><button class="p big" id="hplay">▶ PLAY</button><button class="big" id="hlv">LEVELS</button><button class="big" id="hdaily" style="display:none">🎁 Daily Reward</button><div class="hrow" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center"><button id="hset">⚙ Settings</button><button id="hhow">? How to play</button></div><div class="hsp"></div><div class="bn">Banner ad (demo)</div></div>
 <div id="lov" class="scr"><div style="display:flex;gap:8px;align-items:center;width:100%;max-width:520px"><b style="font-size:1.2rem;flex:1;text-align:left">LEVELS</b><button id="pcopy" style="min-height:36px;padding:4px 8px;font-size:.75rem">Progress Copy</button><button id="ppaste" style="min-height:36px;padding:4px 8px;font-size:.75rem">Paste</button><button id="lclose" style="min-height:36px;padding:4px 10px">✕</button></div><div id="pmsg" style="font-size:.8rem;color:var(--mute);min-height:1em"></div><div id="lgrid"></div><div class="bn">Banner ad (demo)</div></div>
 <div id="stg" class="scr"><h2 style="margin:0">⚙ Settings</h2><button class="big" id="sfx"></button><button class="big" id="mu"></button><button class="big" id="rate" style="display:none">Rate this game</button><button class="big" id="priv" style="display:none">Privacy Policy</button><button class="big" id="shr">Share</button><button class="p big" id="stclose">OK</button></div>
-<div id="tut" class="scr"><h2 style="margin:0">How to play</h2><p>1. Touch an arrow and it slides out in the direction of its head.<br>2. If another arrow is in the way, you crash and lose a heart ❤️. Lose all 3 hearts and the level ends (you can Revive).<br>3. Remove the arrows with a clear path first.<br>4. Pinch with two fingers to zoom, drag with one finger to move the board.<br>5. Stuck? Press Hint: the safe arrow blinks red. Press Mark to see every arrow's route (green = clear, orange = blocked, the red X shows what blocks it). Undo takes a move back. Play without accidents for 3 stars!</p><button class="p big" id="tclose">Got it!</button></div>
+<div id="tut" class="scr"><h2 style="margin:0">How to play</h2><p>1. Touch an arrow and it slides out in the direction of its head.<br>2. If another arrow is in the way, you crash and lose a heart ❤️. Lose all 3 hearts and the level ends (you can Revive).<br>3. Remove the arrows with a clear path first.<br>4. Pinch with two fingers to zoom, drag with one finger to move the board.<br>5. Stuck? Press Hint: the safe arrow blinks red. Use Grid to see the board grid and where arrows exit. Grid does not reveal the solution. Play without accidents for 3 stars!</p><button class="p big" id="tclose">Got it!</button></div>
 <div id="adv" class="scr"><b>Advertisement</b><div id="adbox">(Demo) An ad will appear here</div><button class="p big" id="adc">Close</button></div>
 <div id="ld" class="scr"><b style="font-size:1.2rem">Loading level…</b></div>
 <div id="ov" class="scr"><h2 id="ot"></h2><p id="om"></p><button class="p big" id="o1"></button><button class="big" id="o2"></button><button class="big" id="o3"></button></div>
@@ -204,8 +204,17 @@ function draw(a,s){
   const tip=[pe[0]+dx*h*.72,pe[1]+dy*h*.72],c1=[pe[0]-dx*.28+px*b,pe[1]-dy*.28+py*b],c2=[pe[0]-dx*.28-px*b,pe[1]-dy*.28-py*b];
   o.head.setAttribute('points',[tip,c1,c2].map(q=>q.join(',')).join(' '));
 }
-const PAL=['#2563eb','#7c3aed','#ea580c','#0891b2','#4f46e5','#1e3a8a','#9333ea','#0369a1'];
-function baseCol(a){return '#7c3aed'}
+const PAL=[
+ ['#2563eb','#7c3aed','#0891b2','#0369a1','#4f46e5','#1d4ed8','#0e7490','#4338ca'],
+ ['#e11d48','#db2777','#c026d3','#be185d','#9f1239','#ec4899','#a21caf','#fb7185'],
+ ['#059669','#0d9488','#0284c7','#16a34a','#047857','#0f766e','#0369a1','#15803d'],
+ ['#ea580c','#d97706','#ca8a04','#dc2626','#c2410c','#b45309','#e11d48','#f97316'],
+ ['#7c3aed','#4f46e5','#6366f1','#9333ea','#6d28d9','#4338ca','#a855f7','#8b5cf6']
+];
+function baseCol(a){
+  const theme=Math.floor((Math.max(1,lv)-1)/20)%PAL.length;
+  return PAL[theme][a.id%PAL[theme].length];
+}
 function color(a){if(!els[a.id]||els[a.id].a!==a)return;const c=a.escaping?'#ff2d95':a.hint?'#ff1f1f':a.crashed?'#9f1239':(a.col=a.col||baseCol(a)),o=els[a.id];o.g.classList.toggle('hb',!!a.hint&&!a.escaping);
   o.body.setAttribute('stroke',c);o.head.setAttribute('fill',c);o.head.setAttribute('stroke',c)}
 let LX=0,LY=0,multi=false,bumps=0;
@@ -220,6 +229,41 @@ function setZoom(z){Z=Math.min(8,Math.max(1,z));layout(true)}
 function zoomAt(z,mx,my,fx,fy){Z=Math.min(8,Math.max(1,z));const bd=$('board'),svg=$('svg'),cw=bd.clientWidth||300,ch=bd.clientHeight||300,fit=Math.min(cw,ch);
   SIDE=fit*Z;svg.style.width=SIDE+'px';svg.style.height=SIDE+'px';svg.style.marginTop=Math.max(0,(ch-SIDE)/2)+'px';
   const r=svg.getBoundingClientRect();bd.scrollLeft+=r.left+fx*r.width-mx;bd.scrollTop+=r.top+fy*r.height-my;fitClass()}
+let showGrid=false;
+
+function drawGrid(){
+  const svg=$('svg');
+  if(!svg||!G)return;
+
+  let layer=$('gridLayer');
+  if(!layer){
+    layer=el('g',{id:'gridLayer','pointer-events':'none'});
+    svg.insertBefore(layer,svg.firstChild);
+  }
+
+  layer.innerHTML='';
+  if(!showGrid)return;
+
+  const n=G.N;
+
+  for(let i=0;i<=n;i++){
+    layer.appendChild(el('line',{x1:i,y1:0,x2:i,y2:n,stroke:'#555','stroke-width':.035,opacity:.65}));
+    layer.appendChild(el('line',{x1:0,y1:i,x2:n,y2:i,stroke:'#555','stroke-width':.035,opacity:.65}));
+  }
+
+  G.arrows.forEach(a=>{
+    const last=a.cells[a.cells.length-1];
+    const [dx,dy]=D[a.d];
+    let x=last[0]+.5;
+    let y=last[1]+.5;
+    if(dx>0)x=n;
+    if(dx<0)x=0;
+    if(dy>0)y=n;
+    if(dy<0)y=0;
+    layer.appendChild(el('circle',{cx:x,cy:y,r:.11,fill:'#555',opacity:.9}));
+  });
+}
+
 function render(){
   const svg=$('svg');svg.setAttribute('viewBox',`0 0 ${G.N} ${G.N}`);svg.innerHTML='';els={};
   {const bd=$('board'),fit=Math.min(bd.clientWidth||300,bd.clientHeight||300);Z=1;layout(false);bd.scrollTo(0,0)}
@@ -270,7 +314,7 @@ function hud(){
   $('lvl').textContent='LEVEL '+lv+(G.hard?' · BOSS':'');
   $('left').textContent='ARROWS LEFT: '+alive.length;
   $('sub').textContent=DNAME[DIFF]+'  ·  '+(G.arrows.length-alive.length)+' / '+G.arrows.length+' cleared'+(hits===LIM-1?' · Last chance!':'');
-  $('col').innerHTML=heartsHTML();$('undo').textContent='Undo ('+undoLeft+')';$('hint').textContent=GP.hints>0?'Hint ('+GP.hints+')':(CFG.adsEnabled?'Hint (Ad)':'Hint (0)');drawTrails();
+  $('col').innerHTML=heartsHTML();$('hint').textContent=GP.hints>0?'Hint ('+GP.hints+')':(CFG.adsEnabled?'Hint (Ad)':'Hint (0)');drawTrails();
 }
 function start(l){while(l<1000&&OV[l]&&OV[l].disabled)l++;WANT=l;
   if(have(l)){doStart(l);return}
@@ -365,6 +409,11 @@ function lose(){loseSound();
 function doHint(){idleT=Date.now();$('hint').classList.remove('pulse');alive.forEach(a=>{if(a.hint){a.hint=false;color(a)}});
   const s=alive.find(a=>!blocker(a).b);if(!s)return;s.hint=true;color(s);
   const bd=$('board'),k=SIDE/G.N,c=s.cells[s.cells.length-1];if(SIDE>bd.clientWidth+2)bd.scrollLeft=(c[0]+.5)*k-bd.clientWidth/2;if(SIDE>bd.clientHeight+2)bd.scrollTop=(c[1]+.5)*k-bd.clientHeight/2}
+$('grid').onclick=()=>{
+  showGrid=!showGrid;
+  drawGrid();
+  $('grid').textContent=showGrid?'Grid ✓':'Grid';
+};
 $('hint').onclick=()=>{if(GP.hints>0){GP.hints--;sp();hud();doHint()}else if(CFG.adsEnabled)fakeAd(doHint);else ov('No hints left','Earn more: finish 5 levels, or claim your Daily Reward on the Home screen','OK',()=>{})};
 function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.querySelectorAll('.bn').forEach(e=>e.style.display=(CFG.bannerEnabled&&CFG.adsEnabled&&!(window.AP_ADS&&AP_ADS.native))?'flex':'none');$('rate').style.display=CFG.rateUrl?'':'none';$('priv').style.display=CFG.privacyUrl?'':'none';$('htitle').textContent=CFG.name;$('hlogo').innerHTML='';
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:84px';$('hlogo').appendChild(i)}else $('hlogo').textContent=CFG.logo||'🏹';

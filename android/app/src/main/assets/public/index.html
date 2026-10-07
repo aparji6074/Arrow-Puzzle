@@ -256,16 +256,11 @@ function drawGrid(){
     const [dx,dy]=D[a.d];
     let x=last[0]+.5;
     let y=last[1]+.5;
-
     if(dx>0)x=n;
     if(dx<0)x=0;
     if(dy>0)y=n;
     if(dy<0)y=0;
-
-    layer.appendChild(el('circle',{
-      cx:x,cy:y,r:.11,
-      fill:'#555',opacity:.9
-    }));
+    layer.appendChild(el('circle',{cx:x,cy:y,r:.11,fill:'#555',opacity:.9}));
   });
 }
 
@@ -281,7 +276,6 @@ function render(){
     els[a.id]={g,hit,body,head,a};a.crashed=false;a.hint=false;a.escaping=false;
     color(a);draw(a,0);
   });
-    drawGrid();
 }
 function anim(dur,f,cb){const t0=performance.now();(function st(n){const t=Math.max(0,Math.min(1,(n-t0)/dur));f(t);t<1?requestAnimationFrame(st):cb&&cb()})(t0)}
 let SND=true;try{SND=localStorage.getItem('ap_snd')!=='0'}catch(e){}
@@ -320,7 +314,7 @@ function hud(){
   $('lvl').textContent='LEVEL '+lv+(G.hard?' · BOSS':'');
   $('left').textContent='ARROWS LEFT: '+alive.length;
   $('sub').textContent=DNAME[DIFF]+'  ·  '+(G.arrows.length-alive.length)+' / '+G.arrows.length+' cleared'+(hits===LIM-1?' · Last chance!':'');
-  $('col').innerHTML=heartsHTML();$('hint').textContent=GP.hints>0?'Hint ('+GP.hints+')':(CFG.adsEnabled?'Hint (Ad)':'Hint (0)');
+  $('col').innerHTML=heartsHTML();$('hint').textContent=GP.hints>0?'Hint ('+GP.hints+')':(CFG.adsEnabled?'Hint (Ad)':'Hint (0)');drawTrails();
 }
 function start(l){while(l<1000&&OV[l]&&OV[l].disabled)l++;WANT=l;
   if(have(l)){doStart(l);return}
@@ -344,7 +338,19 @@ function pickArrow(cx,cy){const r=$('svg').getBoundingClientRect();if(!r.width||
 $('board').addEventListener('pointerdown',e=>{if(!e.isPrimary||multi||!G)return;const bd=$('board');
   if(SIDE>bd.clientWidth+2||SIDE>bd.clientHeight+2){const x=e.clientX,y=e.clientY;setTimeout(()=>{if(!multi&&Math.hypot(LX-x,LY-y)<12){const a=pickArrow(x,y);if(a)tap(a)}},45)}
   else{const a=pickArrow(e.clientX,e.clientY);if(a)tap(a)}});
-
+// MARK: shows the route of every arrow. Green dashed = path is clear. Orange dashed = blocked, the red X shows what blocks it.
+function drawTrails(){const svg=$('svg');const old=document.getElementById('trail');if(old)old.remove();if(!MARK||!G||!alive)return;
+  const m=occMap(),t=document.createElementNS(NS,'g');t.id='trail';t.setAttribute('pointer-events','none');
+  for(const a of alive){const h=a.cells[a.cells.length-1],dx=D[a.d][0],dy=D[a.d][1];let x=h[0]+dx,y=h[1]+dy,blk=null;const pts=[[h[0]+.5,h[1]+.5]];
+    while(x>=0&&y>=0&&x<G.N&&y<G.N){const b=m.get(K(x,y));if(b&&b!==a){blk=[x,y];break}pts.push([x+.5,y+.5]);x+=dx;y+=dy}
+    if(!blk)pts.push([x+.5-dx*.2,y+.5-dy*.2]);
+    const col=blk?'#f97316':'#16a34a';
+    el('polyline',{points:pts.map(q=>q.join(',')).join(' '),fill:'none',stroke:col,'stroke-width':.24,'stroke-dasharray':'.38 .32','stroke-linecap':'round','stroke-linejoin':'round',opacity:.95},t);
+    if(blk){const cx=blk[0]+.5,cy=blk[1]+.5,r=.42;el('circle',{cx,cy,r:r,fill:'#fff','fill-opacity':.85,stroke:'#dc2626','stroke-width':.14},t);
+      el('path',{d:`M${cx-.2} ${cy-.2}L${cx+.2} ${cy+.2}M${cx+.2} ${cy-.2}L${cx-.2} ${cy+.2}`,stroke:'#dc2626','stroke-width':.16,'stroke-linecap':'round',fill:'none'},t)}
+    else{const e=pts[pts.length-1],px=-dy,py=dx;el('polygon',{points:[[e[0]+dx*.35,e[1]+dy*.35],[e[0]+px*.3,e[1]+py*.3],[e[0]-px*.3,e[1]-py*.3]].map(q=>q.join(',')).join(' '),fill:col},t)}}
+  svg.insertBefore(t,svg.firstChild)}
+$('mark').onclick=()=>{MARK=!MARK;$('mark').classList.toggle('on',MARK);$('mark').textContent=MARK?'Mark ✓':'Mark';drawTrails()};
 setInterval(()=>{const stuck=Date.now()-idleT>25000&&$('hm').style.display==='none'&&$('ov').style.display!=='flex'&&alive&&alive.length>0;$('hint').classList.toggle('pulse',!!stuck)},1000);
 function cancelLastTap(){const lt=lastTap;if(!lt||performance.now()-lt.t>170)return;lastTap=null;const a=lt.a;
   if(lt.kind==='exit'&&a.moving&&undoStack[undoStack.length-1]===a){a.cancelled=true;a.moving=false;pending--;undoStack.pop();a.escaping=false;draw(a,0);color(a);alive.push(a);hud()}
@@ -383,6 +389,7 @@ function win(){confetti();winSound();GP.done=(GP.done||0)+1;const st=lvHits===0?
 function showComplete(l,st,bonus,nxt,claimed){
   ov('🎉 LEVEL '+l+' COMPLETE!','★'.repeat(st)+'☆'.repeat(3-st)+bonus+'\nNext: LEVEL '+nxt,'▶ PLAY',()=>go(nxt),'⌂ HOME',()=>{start(nxt);showHome()},
     (claimed||!CFG.adsEnabled)?null:'🎬 +1 HINT (Ad)',(claimed||!CFG.adsEnabled)?null:()=>fakeAd(()=>{GP.hints++;sp();showComplete(l,st,bonus+'\n🎬 +1 Hint from the ad!',nxt,true)}))}
+function undo(){if(busy||pending||!undoStack.length)return;if(undoLeft<=0){if(!CFG.adsEnabled){ov('No undos left','You get a fresh set of undos in every level','OK',()=>{});return}ov('Out of undos','Watch a short ad to get 3 more undos','🎬 +3 UNDOS (Ad)',()=>fakeAd(()=>{undoLeft+=3;hud()}),'Not now',()=>{});return}const a=undoStack.pop();undoLeft--;a.escaping=false;draw(a,0);color(a);$('svg').appendChild(els[a.id].g);alive.push(a);hud()}
 function copyTxt(t){try{navigator.clipboard.writeText(t)}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove()}}
 function levels(){const box=$('lgrid');box.innerHTML='';
   for(let i=1;i<=1000;i++){const b=document.createElement('button'),lk=i>PROG.max,st=PROG.stars[i]||0;b.className='lb'+(lk?' lock':st?' s'+st:'')+(i===lv?' cur':'');
@@ -407,16 +414,16 @@ $('grid').onclick=()=>{
   drawGrid();
   $('grid').textContent=showGrid?'Grid ✓':'Grid';
 };
-
 $('hint').onclick=()=>{if(GP.hints>0){GP.hints--;sp();hud();doHint()}else if(CFG.adsEnabled)fakeAd(doHint);else ov('No hints left','Earn more: finish 5 levels, or claim your Daily Reward on the Home screen','OK',()=>{})};
 function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.querySelectorAll('.bn').forEach(e=>e.style.display=(CFG.bannerEnabled&&CFG.adsEnabled&&!(window.AP_ADS&&AP_ADS.native))?'flex':'none');$('rate').style.display=CFG.rateUrl?'':'none';$('priv').style.display=CFG.privacyUrl?'':'none';$('htitle').textContent=CFG.name;$('hlogo').innerHTML='';
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:84px';$('hlogo').appendChild(i)}else $('hlogo').textContent=CFG.logo||'🏹';
   $('brand').innerHTML='';const b=$('brand');
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:20px;vertical-align:middle;margin-right:6px';b.appendChild(i);b.appendChild(document.createTextNode(CFG.name))}
   else b.textContent=(CFG.logo?CFG.logo+' ':'')+CFG.name;
-  document.title=CFG.name;$('hint').style.display=CFG.hintEnabled?'':'none'}
+  document.title=CFG.name;$('hint').style.display=CFG.hintEnabled?'':'none';$('undo').style.display=CFG.undoLimit>0?'':'none'}
 function sndBtn(){$('snd').textContent=(SND||MUS)?'🔊':'🔇'}
 $('snd').onclick=()=>{const on=!(SND||MUS);SND=MUS=on;sv2();sndBtn();setBtns();if(on){musStart();tak()}else musStop()};
+$('undo').onclick=undo;
 $('lclose').onclick=()=>$('lov').style.display='none';
 $('pcopy').onclick=()=>{const all={p:[0,1,2].map(d=>d===DIFF?PROG:ls(PKEY[d],{max:1,stars:{}})),g:GP,d:DIFF};copyTxt(btoa(JSON.stringify(all)));$('pmsg').textContent='Progress code copied (all modes)'};
 $('ppaste').onclick=()=>{const t=prompt('Paste your progress code here');if(!t)return;try{const a=JSON.parse(atob(t.trim()));if(!a||!a.p)throw 0;a.p.forEach((p,d)=>{try{localStorage.setItem(PKEY[d],JSON.stringify(p))}catch(e){}});GP=a.g||GP;PROG=a.p[DIFF];sp();lv=Math.max(1,PROG.max);levels();$('pmsg').textContent='Progress restored'}catch(e){$('pmsg').textContent='Invalid code'}};
