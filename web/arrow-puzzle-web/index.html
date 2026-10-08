@@ -105,6 +105,14 @@ window.AP_ADS={
     window.AP_ADS.native=true;
     window.AP_ADS.ready=true;
     window.AP_ADS.rewardLoaded=false;
+    A.addListener('onRewardedVideoAdFailedToLoad',e=>{
+      window.AP_ADS.rewardError='LOAD: '+JSON.stringify(e);
+      console.log('REWARDED LOAD ERROR:',e);
+    });
+    A.addListener('onRewardedVideoAdFailedToShow',e=>{
+      window.AP_ADS.rewardError='SHOW: '+JSON.stringify(e);
+      console.log('REWARDED SHOW ERROR:',e);
+    });
     A.prepareRewardVideoAd({adId:window.AP_ADS.rewardedAdId,isTesting:true}).then(()=>{window.AP_ADS.rewardLoaded=true}).catch(e=>{console.log('AdMob Rewarded Preload:',e);window.AP_ADS.rewardLoaded=false});
 
     window.AP_ADS.showBanner=async function(){
@@ -483,10 +491,23 @@ function ov(t,m,b1,f1,b2,f2,b3,f3){$('ot').textContent=t;$('om').textContent=m;$
 // AD HOOK: replace fakeAd with your real reward-ad SDK call (AdMob etc.) and call cb() when the reward is earned.
 function fakeAd(cb){
   if(window.AP_ADS&&AP_ADS.native){
+    const recover=()=>{
+      busy=false;
+      pending=0;
+      bumps=0;
+      lastTap=null;
+      if(typeof hud==='function')hud();
+    };
     if(AP_ADS.ready&&typeof AP_ADS.rewarded==='function'){
-      AP_ADS.rewarded(cb,()=>ov('Ad not ready','Please try again in a moment.','OK',()=>{}));
+      AP_ADS.rewarded(cb,()=>{
+        recover();
+        const err=window.AP_ADS.rewardError||'Rewarded ad could not be loaded.';
+        ov('Ad not ready',err,'OK',()=>{recover()});
+      });
     }else{
-      ov('Ad not ready','Please try again in a moment.','OK',()=>{});
+      recover();
+      const err=window.AP_ADS.rewardError||'Rewarded ad could not be loaded.';
+      ov('Ad not ready',err,'OK',()=>{recover()});
     }
     return;
   }
