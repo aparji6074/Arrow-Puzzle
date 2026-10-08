@@ -10,8 +10,8 @@
 :root{box-sizing:border-box;color-scheme:light;--ink:#0b2a6b;--mute:#5b6b8c;--line:#dfe5f1;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:linear-gradient(160deg,#c9e2ff 0%,#e3d5ff 50%,#ffd9ea 100%) fixed;color:var(--ink);font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;-webkit-tap-highlight-color:transparent;overscroll-behavior:none;user-select:none;-webkit-user-select:none}
-#app{display:flex;flex-direction:column;height:100%;height:100vh;height:var(--vh,100dvh);min-height:0;max-width:560px;margin:0 auto;padding:10px 12px}
-.native #app{padding-top:calc(26px + env(safe-area-inset-top,0px));padding-bottom:calc(34px + env(safe-area-inset-bottom,0px))}
+#app{display:flex;flex-direction:column;height:100%;height:100vh;height:var(--vh,100dvh);min-height:0;max-width:560px;margin:0 auto;padding:10px 12px 70px}
+.native #app{padding-top:calc(26px + env(safe-area-inset-top,0px));padding-bottom:calc(70px + env(safe-area-inset-bottom,0px))}
 .scr>:first-child{margin-top:auto}.scr>:last-child{margin-bottom:auto}
 .native .scr{padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
 #top{display:flex;justify-content:space-between;align-items:baseline}
@@ -25,7 +25,7 @@ svg{display:block;margin:0 auto;touch-action:pan-x pan-y;overflow:visible}
 .arr{cursor:pointer}
 @keyframes shk{0%,100%{transform:translate(0)}20%{transform:translate(-.25px,.15px)}40%{transform:translate(.25px,-.15px)}60%{transform:translate(-.15px,-.2px)}80%{transform:translate(.15px,.2px)}}
 svg.shake{animation:shk .35s}
-#bar{display:flex;gap:6px;align-items:center;padding-top:8px}#bar button{white-space:nowrap;padding:8px 10px;font-size:.95rem}
+#bar{display:flex;gap:6px;align-items:center;padding-top:8px;padding-bottom:6px;flex:0 0 auto;position:relative;z-index:4;background:#fff}#bar button{white-space:nowrap;padding:8px 10px;font-size:.95rem}
 button{font:inherit;font-weight:700;border:2px solid var(--ink);background:#fff;color:var(--ink);border-radius:12px;padding:8px 14px;min-height:44px}
 button:active{transform:scale(.97)}
 button:disabled{opacity:.45}
@@ -104,6 +104,8 @@ window.AP_ADS={
 
     window.AP_ADS.native=true;
     window.AP_ADS.ready=true;
+    window.AP_ADS.rewardLoaded=false;
+    A.prepareRewardVideoAd({adId:window.AP_ADS.rewardedAdId,isTesting:true}).then(()=>{window.AP_ADS.rewardLoaded=true}).catch(e=>{console.log('AdMob Rewarded Preload:',e);window.AP_ADS.rewardLoaded=false});
 
     window.AP_ADS.showBanner=async function(){
       try{
@@ -129,17 +131,35 @@ window.AP_ADS={
 
     window.AP_ADS.rewarded=async function(cb,fail){
       try{
+        window.AP_ADS.rewardLoaded=false;
+
         await A.prepareRewardVideoAd({
           adId:window.AP_ADS.rewardedAdId,
           isTesting:true
         });
 
-        await A.showRewardVideoAd({
+        const reward=await A.showRewardVideoAd({
           adId:window.AP_ADS.rewardedAdId
         });
 
-        if(cb)cb();
+        window.AP_ADS.rewardLoaded=false;
+
+        if(reward && typeof reward.amount!=='undefined'){
+          if(cb)cb();
+        }
+
+        A.prepareRewardVideoAd({
+          adId:window.AP_ADS.rewardedAdId,
+          isTesting:true
+        }).then(()=>{
+          window.AP_ADS.rewardLoaded=true;
+        }).catch(e=>{
+          console.log('AdMob Rewarded Preload:',e);
+          window.AP_ADS.rewardLoaded=false;
+        });
+
       }catch(e){
+        window.AP_ADS.rewardLoaded=false;
         console.log('AdMob Rewarded:',e);
         if(fail)fail(e);
       }
@@ -153,11 +173,12 @@ window.AP_ADS={
         });
 
         await A.showInterstitial();
+
+        if(cb)cb();
       }catch(e){
         console.log('AdMob Interstitial:',e);
+        if(cb)cb();
       }
-
-      if(cb)cb();
     };
 
     await window.AP_ADS.showBanner();
@@ -460,7 +481,17 @@ function tap(a){
 function ov(t,m,b1,f1,b2,f2,b3,f3){$('ot').textContent=t;$('om').textContent=m;$('o1').textContent=b1;$('o1').onclick=()=>{$('ov').style.display='none';f1()};
   $('o2').style.display=b2?'':'none';if(b2){$('o2').textContent=b2;$('o2').onclick=()=>{$('ov').style.display='none';f2()}}$('o3').style.display=b3?'':'none';if(b3){$('o3').textContent=b3;$('o3').onclick=()=>{$('ov').style.display='none';f3()}}$('ov').style.display='flex'}
 // AD HOOK: replace fakeAd with your real reward-ad SDK call (AdMob etc.) and call cb() when the reward is earned.
-function fakeAd(cb){if(window.AP_ADS&&AP_ADS.native){if(AP_ADS.ready)AP_ADS.rewarded(cb,()=>ov('Ad not ready','Please check your internet and try again in a moment.','OK',()=>{}));else ov('Ad not ready','Please try again in a moment.','OK',()=>{});return}ov('Reward Ad','(Demo) A reward ad will play here in the real app.','I watched the ad',cb,null,null)}
+function fakeAd(cb){
+  if(window.AP_ADS&&AP_ADS.native){
+    if(AP_ADS.ready&&typeof AP_ADS.rewarded==='function'){
+      AP_ADS.rewarded(cb,()=>ov('Ad not ready','Please try again in a moment.','OK',()=>{}));
+    }else{
+      ov('Ad not ready','Please try again in a moment.','OK',()=>{});
+    }
+    return;
+  }
+  ov('Reward Ad','(Demo) A reward ad will play here in the real app.','I watched the ad',cb,null,null)
+}
 function go(n){if(adPending){adPending=false;interstitial(()=>start(n))}else start(n)}
 // AD HOOK: replace this demo screen with your real interstitial ad; call cb() when it is closed.
 function interstitial(cb){if(window.AP_ADS&&AP_ADS.native){if(AP_ADS.ready)AP_ADS.interstitial(cb);else cb();return}const o=$('adv'),b=$('adc');o.style.display='flex';let s=3;b.disabled=true;b.textContent='Close ('+s+')';
@@ -500,8 +531,8 @@ $('grid').onclick=()=>{
   $('grid').textContent=showGrid?'Grid ✓':'Grid';
 };
 $('hint').onclick=()=>{if(GP.hints>0){GP.hints--;sp();hud();doHint()}else if(CFG.adsEnabled)fakeAd(()=>{GP.hints=Math.min(2,GP.hints+1);sp();hud()});else ov('No hints left','Earn more: finish 5 levels, or claim your Daily Reward on the Home screen','OK',()=>{})};
-function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.querySelectorAll('.bn').forEach(e=>e.style.display=(CFG.bannerEnabled&&CFG.adsEnabled&&!(window.AP_ADS&&AP_ADS.native))?'flex':'none');$('rate').style.display=CFG.rateUrl?'':'none';$('priv').style.display=CFG.privacyUrl?'':'none';$('htitle').textContent=CFG.name;$('hlogo').innerHTML='';
-  if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:84px';$('hlogo').appendChild(i)}else $('hlogo').textContent=CFG.logo||'🏹';
+function apply(){$('hby').textContent='by '+(CFG.author||'APARJI');document.querySelectorAll('.bn').forEach(e=>e.style.display=(CFG.bannerEnabled&&CFG.adsEnabled&&!(window.AP_ADS&&AP_ADS.native))?'flex':'none');$('rate').style.display=CFG.rateUrl?'':'none';$('priv').style.display=CFG.privacyUrl?'':'none';$('htitle').textContent=CFG.name;$('hlogo').innerHTML='<img src="assets/arrow-puzzle-logo.png" alt="Arrow Puzzle" style="width:112px;height:112px;object-fit:contain;border-radius:24px;display:block;margin:0 auto 6px;box-shadow:0 8px 20px rgba(11,42,107,.18)">';
+  if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:84px';$('hlogo').appendChild(i)}
   $('brand').innerHTML='';const b=$('brand');
   if(CFG.logo&&CFG.logo.startsWith('data:')){const i=document.createElement('img');i.src=CFG.logo;i.style.cssText='height:20px;vertical-align:middle;margin-right:6px';b.appendChild(i);b.appendChild(document.createTextNode(CFG.name))}
   else b.textContent=(CFG.logo?CFG.logo+' ':'')+CFG.name;
